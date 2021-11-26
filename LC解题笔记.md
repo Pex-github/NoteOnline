@@ -72,6 +72,7 @@ ArrayList
 	add()
 	get(index)
 	size()
+	contains()
 
   
 HashSet
@@ -94,6 +95,23 @@ list不是一段连续的存储结构，array存储结构连续
 Array转换为List	Array.asList
 List转换为Array	List.toArray
 
+List转arr
+arr = list.stream.mapToInt(Integer::valueOf).toArray();	ArrayList<Integer> 转 int[]
+arr = list.toArray(new Integer[0]);
+
+Object[] array = arraylist.toArray();
+String[] array = arraylist.toArray(new String[arraylist.size()]);
+/
+int[] res = new int[list2.size()];
+        for (int i = 0; i < list2.size(); i++) {
+            res[i] = list2.get(i);
+        }
+        
+int[] res = new int[list2.size()];
+        int i = 0;
+        for (int num : list2) {
+            res[i++] = num;
+        }
 
 Math
 	min()	返回两个比较小的那个
@@ -118,6 +136,7 @@ String
 		for(char c : word1.toCharArray()){
             if(word2.indexOf(c) != -1) return true;
         }//判断是否有相同的字符
+    valueOf(数组)	以字符串的形式	
 	
 StirngBuilder
 	append()	追加到字符串上，拼接
@@ -140,6 +159,14 @@ Integer
 Character
 	isLowerCase(char)	判断是否为小写
 	isUpperCase(char)	判断
+	
+	
+System.arrayc
+	public static native void arraycopy(Object src,  int  srcPos,
+                                        Object dest, int destPos,
+                                        int length);
+   //src表示源数组，srcPos表示源数组要复制的起始位置，desc表示目标数组，length表示要复制的长度。
+
 
 ```
 
@@ -218,7 +245,7 @@ Character
 
 ### 动态规划
 
-题17，18，19，23
+题：17，18，19，23
 
 ```
 找到具有最优值的解，用于求解具有某种最优性质的问题
@@ -234,9 +261,11 @@ Character
 
 ### 记忆化搜索
 
-题：19，
+题：19
 
 ### DFS深度优先算法
+
+题：31
 
 深度优先搜索在搜索过程中访问某个顶点后，需要递归地访问此顶点的所有未访问过的相邻顶点。
 
@@ -250,7 +279,7 @@ Character
 
 ### BFS广度优先算法
 
-30
+题：30	
 
 ### 贪心算法
 
@@ -293,7 +322,7 @@ class Solution {
 
 ### 字符串
 
-字典表	第28	29
+字典表	28	29
 
 ```java
 //创建‘a'-'z'的字典
@@ -1826,6 +1855,39 @@ class Solution {
             res.add(tmp);
         }
         return res;
+    }
+}
+```
+
+#### 31、二叉树的坡度
+
+给定一个二叉树，计算 整个树 的坡度 。
+
+一个树的 节点的坡度 定义即为，该节点左子树的节点之和和右子树节点之和的 差的绝对值 。如果没有左子树的话，左子树的节点之和为 0 ；没有右子树的话也是一样。空结点的坡度是 0 。
+
+整个树 的坡度就是其所有节点的坡度之和。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-tilt
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```java
+class Solution {
+    int ans = 0;
+
+    public int findTilt(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    public int dfs(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int sumLeft = dfs(node.left);
+        int sumRight = dfs(node.right);
+        ans += Math.abs(sumLeft - sumRight);
+        return sumLeft + sumRight + node.val;
     }
 }
 ```

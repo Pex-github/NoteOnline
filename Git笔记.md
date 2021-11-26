@@ -206,9 +206,11 @@ local 只对当前仓库有效
 global 所有仓库有效
 system 对系统所有用户有效
 
+
+
 ##### 查看配置
 
-git config --list --local
+git config --local -l
 git config --list --global
 git config --list --system
 
